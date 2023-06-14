@@ -41,23 +41,21 @@ const productSchema = new mongoose.Schema({
   category: {
     type: String,
     required: [true, "Please Select Category For This Product"],
-    enum: {
-      value: [
-        "Electronics",
-        "Cameras",
-        "Laptop",
-        "Accessories",
-        "Headphones",
-        "Food",
-        "Books",
-        "Clothes/Shoes",
-        "Beauty/Health",
-        "Sports",
-        "Outdoor",
-        "Home",
-      ],
-      message: "Please Select Correct Category For The Product",
-    },
+    enum: [
+      "Electronics",
+      "Cameras",
+      "Laptop",
+      "Accessories",
+      "Headphones",
+      "Food",
+      "Books",
+      "Clothes/Shoes",
+      "Beauty/Health",
+      "Sports",
+      "Outdoor",
+      "Home",
+    ],
+    message: "Please Select Correct Category For The Product",
   },
 
   seller: {
@@ -74,7 +72,7 @@ const productSchema = new mongoose.Schema({
 
   numOfReviews: {
     type: Number,
-    required: [true, "Please Enter Product Stock"],
+    required: [true, "Please Enter Number of Reviews"],
     default: 0,
   },
 
