@@ -44,7 +44,7 @@ const productSchema = new mongoose.Schema({
     enum: [
       "Electronics",
       "Cameras",
-      "Laptop",
+      "Laptops",
       "Accessories",
       "Headphones",
       "Food",
