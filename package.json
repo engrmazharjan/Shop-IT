@@ -4,14 +4,18 @@
   "description": "full stack ecommerce website using mern stack",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node backend/server.js",
+    "dev": "SET NODE_ENV=DEVELOPMENT && nodemon backend/server",
+    "prod": "SET NODE_ENV=PRODUCTION && nodemon backend/server"
   },
   "author": "Sayyed Mazhar Ullah Jan",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^16.1.4",
     "express": "^4.18.2",
-    "mongoose": "^7.2.4",
+    "mongoose": "^7.2.4"
+  },
+  "devDependencies": {
     "nodemon": "^2.0.22"
   }
 }
