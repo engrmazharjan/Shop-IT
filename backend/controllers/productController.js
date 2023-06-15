@@ -22,14 +22,18 @@ exports.getProducts = async (req, res, next) => {
 
 // * Get Single Product Details => /api/v1/product/:id
 exports.getSingleProduct = async (req, res, next) => {
-  const product = await Product.findById(req.params.id);
-  if (!product) {
-    return next(new ErrorHandler("Product Not Found!", 404));
+  try {
+    const product = await Product.findById(req.params.id);
+    if (!product) {
+      return next(new ErrorHandler("Product Not Found!", 404));
+    }
+    res.status(200).json({
+      sucess: true,
+      product,
+    });
+  } catch (error) {
+    console.log(error);
   }
-  res.status(200).json({
-    sucess: true,
-    product,
-  });
 };
 
 // * Update Product => /api/v1/admin/product/:id
