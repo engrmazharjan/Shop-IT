@@ -4,6 +4,7 @@ class APIFeatures {
     this.queryStr = queryStr;
   }
 
+  // * Fuction For Searching A Products
   search() {
     const keyword = this.queryStr.keyword
       ? {
@@ -16,6 +17,8 @@ class APIFeatures {
     this.query = this.query.find({ ...keyword });
     return this;
   }
+
+  // * Fuction For Filtering Products
   filter() {
     const queryCopy = { ...this.queryStr };
 
@@ -29,6 +32,15 @@ class APIFeatures {
     console.log(queryStr);
 
     this.query = this.query.find(JSON.parse(queryStr));
+    return this;
+  }
+
+  // * Fuction For Paginiation For Products
+  pagination(resultsPerPage) {
+    const currentPage = Number(this.queryStr.page) || 1;
+    const skip = resultsPerPage * (currentPage - 1);
+
+    this.query = this.query.limit(resultsPerPage).skip(skip);
     return this;
   }
 }
