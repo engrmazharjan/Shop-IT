@@ -159,7 +159,7 @@ exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
     email: req.body.email,
   };
 
-  // TODO Update Avatar
+  // TODO: Update Avatar
 
   await User.findByIdAndUpdate(req.user.id, newUserData, {
     new: true,
@@ -209,5 +209,43 @@ exports.getUserDetails = catchAsyncErrors(async (req, res, next) => {
   res.status(200).json({
     success: true,
     user,
+  });
+});
+
+// * Update User Profile  => /api/v1/admin/user/:id
+exports.updateUser = catchAsyncErrors(async (req, res, next) => {
+  const newUserData = {
+    name: req.body.name,
+    email: req.body.email,
+    role: req.body.role,
+  };
+
+  await User.findByIdAndUpdate(req.params.id, newUserData, {
+    new: true,
+    runValidators: true,
+    useFindAndModify: false,
+  });
+
+  res.status(200).json({
+    success: true,
+  });
+});
+
+// * Delete User => /api/v1/admin/user/:id
+exports.deleteUser = catchAsyncErrors(async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+
+  if (!user) {
+    return next(
+      new ErrorHandler(`User Does Not Found With Id: ${req.params.id}`, 404)
+    );
+  }
+
+  // TODO: Remove Avatar
+
+  await user.deleteOne();
+
+  res.status(200).json({
+    success: true,
   });
 });
