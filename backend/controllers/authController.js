@@ -161,7 +161,7 @@ exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
 
   // TODO Update Avatar
 
-  const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
+  await User.findByIdAndUpdate(req.user.id, newUserData, {
     new: true,
     runValidators: true,
     useFindAndModify: false,
@@ -182,5 +182,32 @@ exports.logout = catchAsyncErrors(async (req, res, next) => {
   res.status(200).json({
     success: true,
     message: "Logged Out Successfully",
+  });
+});
+
+// * ADMIN ROUTES
+// * Get All Users => /api/v1/admin/users
+exports.allUsers = catchAsyncErrors(async (req, res, next) => {
+  const users = await User.find();
+
+  res.status(200).json({
+    success: true,
+    users,
+  });
+});
+
+// * Get User Details => /api/v1/admin/user/:id
+exports.getUserDetails = catchAsyncErrors(async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+
+  if (!user) {
+    return next(
+      new ErrorHandler(`User Does Not Found With Id: ${req.params.id}`, 404)
+    );
+  }
+
+  res.status(200).json({
+    success: true,
+    user,
   });
 });
